@@ -1,0 +1,1161 @@
+/* ===== Área de trabalho, barra de tarefas, navegador e boot ===== */
+
+.desktop {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  padding-bottom: var(--taskbar-h);
+}
+
+/* Papéis de parede feitos em CSS */
+.wp-colinas {
+  background:
+    radial-gradient(ellipse 120% 60% at 30% 105%, #4fa83a 0 45%, transparent 46%),
+    radial-gradient(ellipse 90% 50% at 85% 110%, #3d8f2c 0 50%, transparent 51%),
+    radial-gradient(ellipse 160% 70% at 50% 120%, #5cb847 0 55%, transparent 56%),
+    radial-gradient(ellipse 30% 8% at 25% 22%, rgba(255, 255, 255, 0.85), transparent 70%),
+    radial-gradient(ellipse 25% 6% at 70% 15%, rgba(255, 255, 255, 0.7), transparent 70%),
+    linear-gradient(180deg, #1e5fd8 0%, #4b8df0 40%, #9cc8ff 70%, #cfe6ff 100%);
+}
+
+.wp-nuvens {
+  background:
+    radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.9) 0 4%, transparent 9%),
+    radial-gradient(circle at 26% 28%, rgba(255, 255, 255, 0.9) 0 5%, transparent 10%),
+    radial-gradient(circle at 70% 55%, rgba(255, 255, 255, 0.8) 0 6%, transparent 12%),
+    radial-gradient(circle at 78% 52%, rgba(255, 255, 255, 0.8) 0 4%, transparent 10%),
+    linear-gradient(180deg, #2b6fe0, #7fb6ff 70%, #e6f2ff);
+}
+
+.wp-classico {
+  background: #008080;
+}
+
+.wp-matrix {
+  background:
+    repeating-linear-gradient(90deg, transparent 0 14px, rgba(0, 255, 70, 0.07) 14px 16px),
+    repeating-linear-gradient(180deg, rgba(0, 255, 70, 0.12) 0 2px, transparent 2px 9px),
+    linear-gradient(180deg, #001a00, #000);
+}
+
+.desktop-icons {
+  position: absolute;
+  top: 8px;
+  left: 6px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 4px;
+  max-height: calc(100% - var(--taskbar-h) - 16px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  z-index: 1;
+}
+
+.desk-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  width: 78px;
+  padding: 4px 2px;
+  border: 1px solid transparent;
+  background: none;
+  color: #fff;
+  font-size: 11px;
+  text-align: center;
+  text-shadow: 1px 1px 1px #000;
+}
+
+.desk-icon span {
+  padding: 0 2px;
+  line-height: 1.2;
+}
+
+.desk-icon.is-selected span {
+  background: var(--select);
+}
+
+.desk-icon.is-selected .icon {
+  filter: drop-shadow(0 0 0 #316ac5) brightness(0.8) sepia(1) hue-rotate(180deg) saturate(3);
+}
+
+.desktop-hint {
+  position: absolute;
+  right: 16px;
+  bottom: calc(var(--taskbar-h) + 14px);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 300px;
+  padding: 8px 10px;
+  background: #ffffe1;
+  border: 1px solid #000;
+  border-radius: 6px;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Navegador */
+.browser-wrap {
+  position: absolute;
+  top: 10px;
+  left: 100px;
+  right: 14px;
+  bottom: calc(var(--taskbar-h) + 10px);
+  display: flex;
+  z-index: 5;
+}
+
+.browser-wrap.is-max {
+  inset: 0 0 var(--taskbar-h) 0;
+}
+
+.browser-wrap > .win {
+  flex: 1;
+}
+
+.browser-wrap.is-max > .win {
+  border-radius: 0;
+}
+
+.browser > .win-body {
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+}
+
+.ie-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 2px 4px;
+  background: var(--face);
+  border-bottom: 1px solid var(--shadow);
+  flex-shrink: 0;
+}
+
+.ie-tool {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 6px;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  background: none;
+  font-size: 12px;
+  min-height: 32px;
+}
+
+.ie-tool:hover {
+  border-color: #c8c4b4;
+  background: #fff;
+}
+
+.ie-arrow {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #a8f08c, #2c9a1c);
+  border: 1px solid #1d6b12;
+  position: relative;
+}
+
+.ie-arrow::after {
+  content: '';
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  border: 6px solid transparent;
+}
+
+.ie-back::after {
+  left: 2px;
+  border-right: 8px solid #fff;
+}
+
+.ie-fwd::after {
+  left: 8px;
+  border-left: 8px solid #fff;
+}
+
+.ie-reload {
+  font-size: 20px;
+  color: #1b8a2a;
+  line-height: 1;
+}
+
+.ie-throbber {
+  margin-left: auto;
+  padding: 2px 6px;
+  background: #fff;
+  border: 1px solid var(--shadow);
+}
+
+.ie-throbber.is-loading .icon {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.ie-address {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 4px;
+  background: var(--face);
+  border-bottom: 1px solid var(--shadow);
+  flex-shrink: 0;
+}
+
+.ie-address label {
+  color: #555;
+}
+
+.ie-addr-field {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  min-width: 0;
+  padding: 0 3px;
+  background: #fff;
+  border: 1px solid #7f9db9;
+}
+
+.ie-addr-field input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  padding: 3px 2px;
+  outline: none;
+  background: transparent;
+  font-size: 12px;
+}
+
+.ie-go {
+  min-width: 0;
+  padding: 2px 8px;
+}
+
+.ie-go-arrow {
+  color: #1b8a2a;
+  font-weight: bold;
+}
+
+.ie-content {
+  flex: 1;
+  overflow: auto;
+  background: #fff;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+.ie-content.is-loading {
+  cursor: progress;
+}
+
+.status-main {
+  flex: 1;
+}
+
+.status-progress {
+  width: 110px;
+}
+
+.status-zone {
+  width: 100px;
+}
+
+/* Barra de tarefas */
+.taskbar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: var(--taskbar-h);
+  display: flex;
+  align-items: stretch;
+  gap: 4px;
+  background: linear-gradient(180deg, #1f2f86 0, #3165c4 3%, #3682e5 6%, #4490e6 10%, #3883e5 12%, #2b71e0 15%, #2663da 18%, #235bd6 20%, #2258d5 23%, #2157d6 38%, #245ddb 54%, #2562df 86%, #245fdc 89%, #2158d4 92%, #1d4ec0 95%, #1941a5 98%);
+  z-index: 3000;
+  color: #fff;
+}
+
+.start-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 20px 0 10px;
+  border: 0;
+  border-radius: 0 12px 12px 0;
+  background: radial-gradient(circle at 30% 20%, #6fcf5f 0%, #3c9a2e 40%, #2d7f22 100%);
+  box-shadow: inset -2px -2px 4px rgba(0, 0, 0, 0.3), inset 2px 2px 4px rgba(255, 255, 255, 0.4);
+  color: #fff;
+  font: italic bold 17px 'Trebuchet MS', Tahoma, sans-serif;
+  text-shadow: 1px 1px 2px #1a4d12;
+}
+
+.start-btn:hover {
+  filter: brightness(1.08);
+}
+
+.start-btn.is-pressed {
+  filter: brightness(0.85);
+}
+
+.start-logo {
+  display: grid;
+  grid-template-columns: 7px 7px;
+  gap: 1px;
+  transform: skewY(-6deg);
+}
+
+.start-logo i {
+  width: 7px;
+  height: 7px;
+  border-radius: 1px;
+}
+
+.start-logo i:nth-child(1) {
+  background: #00e5ff;
+}
+.start-logo i:nth-child(2) {
+  background: #ccff00;
+}
+.start-logo i:nth-child(3) {
+  background: #b44dff;
+}
+.start-logo i:nth-child(4) {
+  background: #ffffff;
+}
+
+.quick-launch {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 0 4px;
+  border-right: 1px solid rgba(0, 0, 0, 0.25);
+}
+
+.quick-launch button {
+  padding: 3px;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  background: none;
+}
+
+.quick-launch button:hover {
+  border-color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.task-buttons {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.task-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  min-width: 0;
+  max-width: 220px;
+  height: 26px;
+  padding: 0 8px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 3px;
+  background: linear-gradient(180deg, #3c81f3, #2963d8);
+  box-shadow: inset 1px 1px rgba(255, 255, 255, 0.35);
+  color: #fff;
+  font-size: 11px;
+}
+
+.task-btn span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.task-btn.is-active {
+  background: linear-gradient(180deg, #1c4bb5, #1e52c4);
+  box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.tray {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 0 8px;
+  background: linear-gradient(180deg, #0c59b9 1%, #139ee9 6%, #18b5f2 10%, #139beb 14%, #1290e8 19%, #0d8dea 63%, #0d9ff1 81%, #0f9eed 88%, #119be9 91%, #1392e2 94%, #137ed7 97%, #095bc9 100%);
+  border-left: 1px solid #092e82;
+  box-shadow: inset 1px 0 1px #18bbff;
+}
+
+.tray-btn,
+.tray-clock {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 24px;
+  padding: 0 4px;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  background: none;
+  color: #fff;
+  font-size: 11px;
+}
+
+.tray-btn:hover,
+.tray-clock:hover {
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.tray-theme {
+  font-weight: bold;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  min-width: 28px;
+  justify-content: center;
+}
+
+.tray-music-title {
+  max-width: 110px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tray-clock {
+  padding: 0 6px;
+  font-size: 12px;
+}
+
+/* Menu Iniciar */
+.start-menu {
+  position: absolute;
+  left: 0;
+  bottom: var(--taskbar-h);
+  width: min(400px, 100vw);
+  max-height: calc(100vh - var(--taskbar-h));
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #0b3daf;
+  border-radius: 8px 8px 0 0;
+  background: #fff;
+  box-shadow: 3px -2px 8px rgba(0, 0, 0, 0.5);
+  color: #000;
+  overflow: hidden;
+  animation: menu-up 0.12s ease-out;
+}
+
+@keyframes menu-up {
+  from {
+    transform: translateY(12px);
+    opacity: 0;
+  }
+}
+
+.start-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  background: linear-gradient(180deg, #1868ce 0%, #0e60cb 12%, #0e60cb 20%, #1164cf 32%, #1667cf 33%, #1b6cd3 47%, #1e70d9 54%, #2476dc 60%, #297ae0 65%, #3482e3 77%, #3786e5 79%, #428ee9 90%, #4791eb 100%);
+  color: #fff;
+  font: bold 15px 'Trebuchet MS', Tahoma, sans-serif;
+  text-shadow: 1px 1px 2px #0a2f73;
+}
+
+.start-head .icon {
+  border: 2px solid #fff;
+  border-radius: 4px;
+}
+
+.start-cols {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  border-top: 2px solid #f89b2e;
+}
+
+.start-left,
+.start-right {
+  margin: 0;
+  padding: 6px 0;
+  list-style: none;
+}
+
+.start-left {
+  flex: 1.2;
+  background: #fff;
+}
+
+.start-right {
+  flex: 1;
+  background: #d3e5fa;
+  border-left: 1px solid #95bdee;
+}
+
+.start-cols button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 4px 8px;
+  border: 0;
+  background: none;
+  text-align: left;
+  font-size: 11px;
+}
+
+.start-right button {
+  color: #0a246a;
+}
+
+.start-cols button:hover {
+  background: #316ac5;
+  color: #fff;
+}
+
+.start-cols button span {
+  display: flex;
+  flex-direction: column;
+}
+
+.start-cols small {
+  color: #777;
+  font-size: 10px;
+}
+
+.start-cols button:hover small {
+  color: #dde;
+}
+
+.start-foot {
+  display: flex;
+  justify-content: flex-end;
+  gap: 6px;
+  padding: 6px 10px;
+  background: linear-gradient(180deg, #4282d6, #3b7bd4 50%, #1d5bbf);
+}
+
+.start-foot button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 6px;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  background: none;
+  color: #fff;
+  font-size: 11px;
+}
+
+.start-foot button:hover {
+  border-color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* Calendário */
+.calendar-pop {
+  position: absolute;
+  right: 4px;
+  bottom: calc(var(--taskbar-h) + 4px);
+  width: 210px;
+  padding: 8px;
+  background: #fff;
+  border: 1px solid #0b3daf;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
+  color: #000;
+}
+
+.calendar-head {
+  text-align: center;
+  font-weight: bold;
+  text-transform: capitalize;
+  margin-bottom: 6px;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+  text-align: center;
+  font-size: 11px;
+}
+
+.calendar-grid b {
+  color: #0a246a;
+}
+
+.calendar-grid .is-today {
+  background: #316ac5;
+  color: #fff;
+  font-weight: bold;
+}
+
+.calendar-time {
+  margin-top: 6px;
+  text-align: center;
+  font: 18px var(--font-mono);
+}
+
+/* Tema 98: barra de tarefas cinza */
+:root[data-theme='98'] .taskbar {
+  background: #c0c0c0;
+  box-shadow: inset 0 1px #dfdfdf, inset 0 2px #fff;
+  color: #000;
+  padding: 3px 2px 2px;
+  gap: 3px;
+}
+
+:root[data-theme='98'] .start-btn {
+  padding: 0 6px;
+  border-radius: 0;
+  background: #c0c0c0;
+  color: #000;
+  text-shadow: none;
+  font: bold 11px var(--font-98);
+  box-shadow:
+    inset -1px -1px #0a0a0a,
+    inset 1px 1px #fff,
+    inset -2px -2px #808080,
+    inset 2px 2px #dfdfdf;
+}
+
+:root[data-theme='98'] .start-btn.is-pressed {
+  filter: none;
+  box-shadow:
+    inset 1px 1px #0a0a0a,
+    inset -1px -1px #fff,
+    inset 2px 2px #808080;
+}
+
+:root[data-theme='98'] .start-logo i:nth-child(1) {
+  background: #000080;
+}
+:root[data-theme='98'] .start-logo i:nth-child(2) {
+  background: #008000;
+}
+:root[data-theme='98'] .start-logo i:nth-child(3) {
+  background: #800080;
+}
+:root[data-theme='98'] .start-logo i:nth-child(4) {
+  background: #808000;
+}
+
+:root[data-theme='98'] .quick-launch {
+  border-right: 0;
+  box-shadow: inset -1px 0 #808080, 1px 0 #fff;
+}
+
+:root[data-theme='98'] .task-btn {
+  height: 100%;
+  border: 0;
+  border-radius: 0;
+  background: #c0c0c0;
+  color: #000;
+  box-shadow:
+    inset -1px -1px #0a0a0a,
+    inset 1px 1px #fff,
+    inset -2px -2px #808080,
+    inset 2px 2px #dfdfdf;
+}
+
+:root[data-theme='98'] .task-btn.is-active {
+  background: repeating-conic-gradient(#fff 0 25%, #c0c0c0 0 50%) 0 0 / 2px 2px;
+  font-weight: bold;
+  box-shadow:
+    inset 1px 1px #0a0a0a,
+    inset -1px -1px #fff,
+    inset 2px 2px #808080;
+}
+
+:root[data-theme='98'] .tray {
+  background: #c0c0c0;
+  border: 0;
+  box-shadow: inset 1px 1px #808080, inset -1px -1px #fff;
+}
+
+:root[data-theme='98'] .tray-btn,
+:root[data-theme='98'] .tray-clock {
+  color: #000;
+}
+
+:root[data-theme='98'] .tray-theme {
+  border-color: #808080;
+}
+
+:root[data-theme='98'] .start-menu {
+  width: min(330px, 100vw);
+  border: 0;
+  border-radius: 0;
+  background: #c0c0c0;
+  box-shadow:
+    inset -1px -1px #0a0a0a,
+    inset 1px 1px #dfdfdf,
+    inset -2px -2px #808080,
+    inset 2px 2px #fff;
+  padding: 3px 3px 3px 28px;
+  position: absolute;
+}
+
+:root[data-theme='98'] .start-menu::before {
+  content: 'Y2K Archive 98';
+  position: absolute;
+  left: 3px;
+  top: 3px;
+  bottom: 3px;
+  width: 22px;
+  background: linear-gradient(0deg, #000080, #1084d0);
+  color: #c0c0c0;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font: bold 16px Arial, sans-serif;
+  padding-top: 6px;
+}
+
+:root[data-theme='98'] .start-head {
+  display: none;
+}
+
+:root[data-theme='98'] .start-cols {
+  flex-direction: column;
+  border-top: 0;
+}
+
+:root[data-theme='98'] .start-left,
+:root[data-theme='98'] .start-right {
+  background: transparent;
+  border: 0;
+  padding: 0;
+}
+
+:root[data-theme='98'] .start-right {
+  border-top: 1px solid #808080;
+  box-shadow: inset 0 1px #fff;
+}
+
+:root[data-theme='98'] .start-right button,
+:root[data-theme='98'] .start-cols button {
+  color: #000;
+}
+
+:root[data-theme='98'] .start-cols button:hover {
+  background: #000080;
+  color: #fff;
+}
+
+:root[data-theme='98'] .start-cols small {
+  display: none;
+}
+
+:root[data-theme='98'] .start-foot {
+  background: transparent;
+  justify-content: stretch;
+  flex-direction: column;
+  padding: 0;
+  gap: 0;
+  border-top: 1px solid #808080;
+  box-shadow: inset 0 1px #fff;
+}
+
+:root[data-theme='98'] .start-foot button {
+  color: #000;
+  border: 0;
+  border-radius: 0;
+  padding: 4px 8px;
+}
+
+:root[data-theme='98'] .start-foot button:hover {
+  background: #000080;
+  color: #fff;
+}
+
+:root[data-theme='98'] .calendar-pop {
+  background: #c0c0c0;
+  border: 0;
+  box-shadow: inset -1px -1px #0a0a0a, inset 1px 1px #fff, inset -2px -2px #808080;
+}
+
+:root[data-theme='98'] .ie-tool:hover {
+  background: #c0c0c0;
+  border-color: #fff #808080 #808080 #fff;
+  border-radius: 0;
+}
+
+:root[data-theme='98'] .ie-addr-field {
+  border: 0;
+  box-shadow: inset 1px 1px #808080, inset -1px -1px #fff, inset 2px 2px #0a0a0a;
+}
+
+:root[data-theme='98'] .menubar-item > button:hover,
+:root[data-theme='98'] .menubar-item > button.is-open {
+  background: #000080;
+}
+
+/* ===== Boot / discada ===== */
+.boot {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  color: #c0c0c0;
+  overflow: auto;
+}
+
+.boot-power {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 24px 16px;
+  text-align: center;
+  background: radial-gradient(ellipse at center, #0b1440 0%, #000 70%);
+}
+
+.boot-monitor-led {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ffae00;
+  box-shadow: 0 0 10px #ffae00;
+  animation: blink 1.4s steps(1) infinite;
+}
+
+.boot-power-title {
+  margin: 0;
+  font: bold clamp(22px, 6vw, 46px) 'Arial Black', Impact, sans-serif;
+  letter-spacing: 2px;
+  background: linear-gradient(180deg, #fff 0%, #00e5ff 45%, #7b2cff 55%, #ccff00 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(3px 3px 0 #0033aa);
+}
+
+.boot-power-sub {
+  margin: 0;
+  font: 16px var(--font-mono);
+  color: #7fe9ff;
+}
+
+.boot-power-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.power-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border: 2px solid #ccff00;
+  border-radius: 4px;
+  background: linear-gradient(180deg, #1f3c88, #0b1a40);
+  color: #ccff00;
+  font: bold 15px var(--font-mono);
+  box-shadow: 0 0 12px rgba(204, 255, 0, 0.35);
+}
+
+.power-btn span {
+  font-size: 20px;
+}
+
+.power-btn:hover {
+  background: linear-gradient(180deg, #2e56b8, #13296a);
+}
+
+.power-btn.is-mute {
+  border-color: #00e5ff;
+  color: #00e5ff;
+  box-shadow: 0 0 12px rgba(0, 229, 255, 0.3);
+}
+
+.boot-hint {
+  max-width: 420px;
+  margin: 0;
+  color: #889;
+  font-size: 12px;
+}
+
+.boot-skip-link {
+  border: 0;
+  background: none;
+  color: #889;
+  text-decoration: underline;
+  font-size: 12px;
+}
+
+.boot-bios {
+  min-height: 100%;
+  padding: 20px;
+  font: 15px/1.5 var(--font-mono);
+  color: #c0c0c0;
+  position: relative;
+}
+
+.bios-energy {
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  color: #3cff3c;
+  font: bold italic 18px Arial, sans-serif;
+  border: 2px solid #3cff3c;
+  padding: 4px 8px;
+}
+
+.bios-cursor {
+  animation: blink 0.6s steps(1) infinite;
+}
+
+.bios-foot {
+  position: absolute;
+  bottom: 18px;
+  left: 20px;
+  right: 20px;
+}
+
+.boot-dial {
+  min-height: 100%;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+}
+
+.boot-dial {
+  background: #008080;
+}
+
+:root[data-theme='xp'] .boot-dial {
+  background: linear-gradient(180deg, #5a7edc, #2b56c9);
+}
+
+.dial-window {
+  width: min(420px, 100%);
+}
+
+.dial-art {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 8px;
+  margin-bottom: 6px;
+  background: #fff;
+  border: 1px solid var(--shadow);
+}
+
+.dial-dots {
+  display: flex;
+  gap: 5px;
+}
+
+.dial-dots i {
+  width: 8px;
+  height: 8px;
+  background: #ccc;
+}
+
+.dial-dots.is-on i {
+  animation: dot 1s steps(1) infinite;
+}
+
+.dial-dots.is-on i:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.dial-dots.is-on i:nth-child(3) {
+  animation-delay: 0.4s;
+}
+.dial-dots.is-on i:nth-child(4) {
+  animation-delay: 0.6s;
+}
+.dial-dots.is-on i:nth-child(5) {
+  animation-delay: 0.8s;
+}
+
+@keyframes dot {
+  0% {
+    background: #2fb43a;
+  }
+  50% {
+    background: #ccc;
+  }
+}
+
+.dial-status {
+  font-weight: bold;
+  min-height: 1.4em;
+}
+
+.dial-speed {
+  font: 11px var(--font-mono);
+  color: #444;
+}
+
+.shutdown {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  padding: 16px;
+  background: #000;
+  text-align: center;
+}
+
+.shutdown-text {
+  margin: 0;
+  color: #ff8c00;
+  font: bold clamp(18px, 4vw, 34px) Arial, sans-serif;
+}
+
+.shutdown-wait {
+  color: #fff;
+  font: 16px var(--font-ui);
+}
+
+/* ===== Configurações e pop-ups ===== */
+.settings-win .win-body {
+  padding: 8px;
+}
+
+.settings-preview {
+  position: relative;
+  height: 110px;
+  margin: 0 auto 8px;
+  width: 170px;
+  border: 8px solid #d4d0c8;
+  border-bottom-width: 18px;
+  border-radius: 4px;
+  box-shadow: 0 0 0 1px #555;
+}
+
+.settings-preview-win {
+  position: absolute;
+  top: 20px;
+  left: 28px;
+  width: 90px;
+  height: 56px;
+  background: var(--face);
+  border: 2px solid var(--window-border);
+  border-top: 10px solid var(--title-from, #0058ee);
+}
+
+:root[data-theme='98'] .settings-preview-win {
+  border: 2px outset #fff;
+  border-top: 10px solid #000080;
+}
+
+.popup .win-body {
+  padding: 10px;
+}
+
+.popup-body {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.popup-body p {
+  margin: 0 0 6px;
+  line-height: 1.35;
+}
+
+.popup-big {
+  font: bold 15px 'Arial Black', Arial, sans-serif;
+  color: #d00;
+}
+
+.popup-small {
+  font-size: 10px;
+  color: #666;
+}
+
+.popup-winner .win-body {
+  background: repeating-linear-gradient(45deg, #ffff66 0 12px, #ccff00 12px 24px);
+}
+
+.popup-ram .win-body {
+  background: linear-gradient(180deg, #fff, #ffe0e0);
+}
+
+.page-loading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 40px;
+  font: 14px var(--font-web);
+}
+
+/* ===== Responsivo ===== */
+@media (max-width: 1099px) {
+  .browser-wrap {
+    inset: 0 0 var(--taskbar-h) 0;
+  }
+  .desktop-icons {
+    display: none;
+  }
+  .browser-wrap.is-max ~ .desktop-icons {
+    display: none;
+  }
+}
+
+@media (max-width: 700px) {
+  .hide-sm {
+    display: none;
+  }
+  .quick-launch {
+    display: none;
+  }
+  .task-btn span {
+    display: none;
+  }
+  .tray-music-title {
+    display: none;
+  }
+  .status-progress,
+  .status-zone {
+    display: none;
+  }
+  .start-btn {
+    padding: 0 12px 0 8px;
+  }
+  .ie-address label {
+    display: none;
+  }
+  .menubar-item > button {
+    padding: 2px 5px;
+  }
+  .browser > .win-title .win-title-text {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 420px) {
+  .hide-xs {
+    display: none;
+  }
+}
+
+/* com a janela fechada/minimizada no celular, mostra os ícones */
+@media (max-width: 1099px) {
+  .desktop:not(:has(.browser-wrap)) .desktop-icons {
+    display: flex;
+  }
+}

@@ -1,0 +1,224 @@
+/* ===== Base, tokens e utilidades ===== */
+:root {
+  --blue: #0044ff;
+  --cyan: #00e5ff;
+  --purple: #7b2cff;
+  --lime: #ccff00;
+  --white: #ffffff;
+  --gray: #c0c0c0;
+  --dark-gray: #808080;
+  --ink: #101018;
+
+  --font-ui: Tahoma, 'Segoe UI', Verdana, Geneva, sans-serif;
+  --font-98: 'MS Sans Serif', 'Microsoft Sans Serif', Tahoma, Arial, sans-serif;
+  --font-web: Verdana, Geneva, Tahoma, sans-serif;
+  --font-fun: 'Comic Sans MS', 'Comic Neue', 'Chalkboard SE', cursive;
+  --font-mono: 'Lucida Console', 'Courier New', Consolas, monospace;
+  --font-pixel: 'Press Start 2P', 'Lucida Console', monospace;
+
+  /* Tema XP (Luna) */
+  --face: #ece9d8;
+  --face-dark: #d6d2c2;
+  --shadow: #aca899;
+  --hilite: #ffffff;
+  --window-border: #0831d9;
+  --title-from: #0058ee;
+  --title-to: #3a93ff;
+  --title-inactive: linear-gradient(180deg, #7b98e6 0%, #8aa8ef 50%, #7b98e6 100%);
+  --title-bg: linear-gradient(180deg, #0997ff 0%, #0053ee 8%, #0050ee 40%, #0066ff 88%, #005bff 95%, #003dd7 100%);
+  --select: #316ac5;
+  --taskbar-h: 34px;
+  --radius: 8px;
+  color-scheme: light;
+}
+
+:root[data-theme='98'] {
+  --face: #c0c0c0;
+  --face-dark: #b0b0b0;
+  --shadow: #808080;
+  --hilite: #ffffff;
+  --window-border: #c0c0c0;
+  --title-bg: linear-gradient(90deg, #000080, #1084d0);
+  --title-inactive: linear-gradient(90deg, #808080, #b5b5b5);
+  --select: #000080;
+  --taskbar-h: 30px;
+  --radius: 0px;
+  --font-ui: var(--font-98);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  color: #000;
+  background: #000;
+  overflow: hidden;
+  -webkit-font-smoothing: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+img,
+svg {
+  display: block;
+}
+
+a {
+  color: #0000ee;
+}
+
+a:visited {
+  color: #551a8b;
+}
+
+:focus-visible {
+  outline: 1px dotted #000;
+  outline-offset: 1px;
+}
+
+.icon {
+  flex-shrink: 0;
+}
+
+.pixel-art {
+  image-rendering: pixelated;
+}
+
+/* ===== Cursor retrô (SVG embutido, nunca quebra) ===== */
+:root.retro-cursor,
+:root.retro-cursor body {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 11 11' shape-rendering='crispEdges'%3E%3Cpath d='M0 0h1v1H0zM0 1h2v1H0zM0 2h3v1H0zM0 3h4v1H0zM0 4h5v1H0zM0 5h6v1H0zM0 6h4v1H0zM0 7h2v1h1v1H0zM3 7h1v1H3zM4 8h1v2H4z' fill='%23000'/%3E%3Cpath d='M1 2h1v1H1zM1 3h2v1H1zM1 4h3v1H1zM1 5h3v1H1zM1 6h2v1H1zM1 7h1v1H1z' fill='%23fff'/%3E%3C/svg%3E")
+      0 0,
+    auto;
+}
+
+:root.retro-cursor :is(button, a, select, label, [role='button'], .desk-icon, summary) {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='21' viewBox='0 0 18 21' shape-rendering='crispEdges'%3E%3Cpath d='M6.5 1.5h2v7h2v1h2v1h2v1h1v6l-1 2h-8l-4-5v-2h2l2 2z' fill='%23fff' stroke='%23000'/%3E%3Cpath d='M10.5 9.5v3M12.5 10.5v2M14.5 11.5v1' stroke='%23000'/%3E%3C/svg%3E")
+      7 1,
+    pointer;
+}
+
+:root.retro-cursor :is(input[type='text'], input:not([type]), textarea) {
+  cursor: text;
+}
+
+/* ===== Efeito CRT opcional ===== */
+.crt-overlay {
+  display: none;
+}
+
+:root.crt-on .crt-overlay {
+  display: block;
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 99999;
+  background:
+    repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.12) 0 1px, transparent 1px 3px),
+    radial-gradient(ellipse at center, transparent 60%, rgba(0, 0, 0, 0.35) 100%);
+  mix-blend-mode: multiply;
+}
+
+:root.crt-on #root {
+  filter: saturate(1.15) contrast(1.05);
+}
+
+/* ===== Utilidades ===== */
+.hint {
+  color: #555;
+  font-size: 11px;
+  margin: 4px 0;
+}
+
+.hint.ok {
+  color: #080;
+  font-weight: bold;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.blink {
+  animation: blink 1s steps(1) infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  10%,
+  50%,
+  90% {
+    transform: translate(-6px, 2px);
+  }
+  30%,
+  70% {
+    transform: translate(6px, -2px);
+  }
+}
+
+.shake {
+  animation: shake 0.6s linear;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001s !important;
+  }
+}
+
+@media print {
+  .taskbar,
+  .desktop-icons,
+  .win-title,
+  .menubar,
+  .ie-toolbar,
+  .ie-address,
+  .win-status,
+  .site-nav {
+    display: none !important;
+  }
+  body {
+    overflow: visible;
+  }
+}
